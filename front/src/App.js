@@ -1,10 +1,25 @@
 import React from "react";
 import "./assets/css/tStyle.scss";
+import {Routes, Route, NavLink, Outlet} from "react-router-dom";
+
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import Navbar from "./layout/Navbar/Navbar";
+
+function Layout() {
+  return (
+    <>
+      <Navbar />
+    </>
+  );
+}
 
 function App() {
   return (
     <>
-      <div className="bg-blue-300">test</div>
+      <Routes>
+        <Route path="/" element={<Layout />}></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
+      </Routes>
     </>
   );
 }
