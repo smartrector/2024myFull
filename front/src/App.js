@@ -3,6 +3,7 @@ import "./assets/css/tStyle.scss";
 import {Routes, Route, NavLink, Outlet} from "react-router-dom";
 
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import Navbar from "./layout/Navbar/Navbar";
 
 function Layout() {
@@ -18,6 +19,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
       </Routes>
     </>
