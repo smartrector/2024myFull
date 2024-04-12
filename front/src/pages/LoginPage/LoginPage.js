@@ -1,5 +1,7 @@
 import React from "react";
 import {useForm} from "react-hook-form";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 function LoginPage() {
   const {
@@ -11,8 +13,20 @@ function LoginPage() {
 
   //   const onSubmit = data => console.log(data);
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit({email, password}) {
+    const body = {
+      email,
+      password,
+    };
+
+    try {
+      const res = await axios.post("/user/login", body);
+      toast.info(res.data.message);
+      console.log(res.data.accessToken);
+    } catch (error) {
+      toast.info(error.response.data.error);
+      console.log(error.response.data.error);
+    }
   }
 
   const userEmail = {

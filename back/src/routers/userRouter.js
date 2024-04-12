@@ -21,7 +21,7 @@ userRouter.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({email: req.body.email});
     if (!user) {
-      return res.status(400).send({error: "이메일을 다시 입력하세요"});
+      return res.status(400).send({error: "이메일을 확인해주세요"});
     }
 
     const isMatch = await compare(req.body.password, user.password);
@@ -33,14 +33,17 @@ userRouter.post("/login", async (req, res) => {
     const payload = {
       userId: user._id.toHexString(),
       email: user.email,
+      role: user.role,
     };
 
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
       expiresIn: "1h",
     });
 
-    return res.status(200).send({user, accessToken, message: "login ok"});
-  } catch (error) {}
+    return res.status(200).send({user, accessToken, message: "로그인성공"});
+  } catch (error) {
+    return res.status(500).send({message: "login fail"});
+  }
 });
 
 module.exports = userRouter;
