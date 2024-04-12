@@ -7,7 +7,7 @@ function LoginPage() {
     handleSubmit,
     formState: {errors},
     reset,
-  } = useForm();
+  } = useForm({mode: "onChange"});
 
   //   const onSubmit = data => console.log(data);
 

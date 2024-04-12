@@ -9,7 +9,7 @@ function RegisterPage() {
     formState: {errors},
     reset,
     watch,
-  } = useForm();
+  } = useForm({mode: "onChange"});
 
   //   const onSubmit = data => console.log(data);
 
