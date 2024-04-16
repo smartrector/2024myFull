@@ -1,7 +1,6 @@
 import React from "react";
 import {useForm} from "react-hook-form";
-import axios from "axios";
-import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
 
 function LoginPage() {
   const {
@@ -13,20 +12,14 @@ function LoginPage() {
 
   //   const onSubmit = data => console.log(data);
 
+  const dispatch = useDispatch();
   async function onSubmit({email, password}) {
     const body = {
       email,
       password,
     };
 
-    try {
-      const res = await axios.post("/user/login", body);
-      toast.info(res.data.message);
-      console.log(res.data.accessToken);
-    } catch (error) {
-      toast.info(error.response.data.error);
-      console.log(error.response.data.error);
-    }
+    dispatch(loginUser(body));
   }
 
   const userEmail = {
