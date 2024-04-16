@@ -1,6 +1,7 @@
 import React from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
+import {loginUser} from "../../store/thunkFunctions";
 
 function LoginPage() {
   const {
@@ -20,6 +21,7 @@ function LoginPage() {
     };
 
     dispatch(loginUser(body));
+    reset();
   }
 
   const userEmail = {
