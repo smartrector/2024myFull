@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const User = require("../models/User");
 const {hash, compare} = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth.js");
 
 userRouter.get("/", async (req, res) => {
   try {
@@ -53,6 +54,11 @@ userRouter.post("/login", async (req, res) => {
   } catch (error) {
     return res.status(500).send({message: "login fail"});
   }
+});
+
+userRouter.get("/auth", auth, async (req, res) => {
+  console.log("-----------------------");
+  console.log("auth");
 });
 
 module.exports = userRouter;
