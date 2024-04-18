@@ -57,8 +57,18 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.get("/auth", auth, async (req, res) => {
-  console.log("-----------------------");
-  console.log("auth");
+  try {
+    const user = {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name,
+      role: req.user.role,
+      image: req.user.image,
+    };
+    return res.status(200).send({user});
+  } catch (e) {
+    return res.status(500).send({error: e.message});
+  }
 });
 
 module.exports = userRouter;
