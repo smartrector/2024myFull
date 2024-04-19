@@ -71,4 +71,12 @@ userRouter.get("/auth", auth, async (req, res) => {
   }
 });
 
+userRouter.post("/logout", auth, async (req, res) => {
+  try {
+    return res.status(200).send({message: "로그아웃되셨습니다."});
+  } catch (e) {
+    return res.status(500).send({error: e.message});
+  }
+});
+
 module.exports = userRouter;
