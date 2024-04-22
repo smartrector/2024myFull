@@ -25,7 +25,17 @@ blogRouter.post("/", async (req, res) => {
 
     let blog = await new Blog({...req.body, user}).save();
 
-    return res.send({blog});
+    return res.status(200).send({blog});
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: error.message});
+  }
+});
+
+blogRouter.get("/", async (req, res) => {
+  try {
+    const blogs = await Blog.find({});
+    return res.status(200).send({blogs});
   } catch (error) {
     console.log(error);
     res.status(500).send({error: error.message});
