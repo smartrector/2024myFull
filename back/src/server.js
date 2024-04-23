@@ -23,7 +23,7 @@ const server = async () => {
 
     app.listen(4000, async function () {
       console.log("server on port 4000");
-      // await getFeker(10);
+      // await getFeker(10, 2);
     });
   } catch (error) {
     console.log("연결이 안됐네요!!!!!");

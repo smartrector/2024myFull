@@ -21,6 +21,7 @@ function Navbar() {
     {to: "/register", name: "회원가입", auth: false},
     {to: "/company", name: "회사소개", auth: true},
     {to: "", name: "로그아웃", auth: true},
+    {to: "/blog", name: "블로그", auth: true},
   ];
   return (
     <div className="w-full shadow-md">

@@ -1,9 +1,11 @@
 const faker = require("faker");
 const User = require("./src/models/User");
 const {hash} = require("bcryptjs");
+const {Blog} = require("./src/models/Blog");
 
-const getFeker = async (userCount) => {
+const getFeker = async (userCount, blogsCouter) => {
   const users = [];
+  const blogs = [];
 
   const password = await hash("111111", 10);
 
@@ -18,8 +20,24 @@ const getFeker = async (userCount) => {
       })
     );
   }
+
+  users.map((user) => {
+    for (let i = 0; i < blogsCouter; i++) {
+      blogs.push(
+        new Blog({
+          title: faker.lorem.words(),
+          content: faker.lorem.paragraphs(),
+          isLive: true,
+          user,
+        })
+      );
+    }
+  });
+
   console.log("fake data start");
   await User.insertMany(users);
+  console.log(blogs);
+  await Blog.insertMany(blogs);
   console.log("complete");
 };
 
