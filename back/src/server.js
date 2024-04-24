@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const userRouter = require("./routers/userRouter");
 const {blogRouter} = require("./routers/blogRouter");
 const {getFeker} = require("../faker");
+const {commentRouter} = require("./routers/commentRouter");
 
 dotenv.config();
 app.use(express.json());
@@ -20,6 +21,7 @@ const server = async () => {
 
     app.use("/user", userRouter);
     app.use("/blog", blogRouter);
+    app.use("/blog/:blogId/comment", commentRouter);
 
     app.listen(4000, async function () {
       console.log("server on port 4000");

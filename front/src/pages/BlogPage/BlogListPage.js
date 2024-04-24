@@ -20,7 +20,6 @@ function BlogListPage() {
     const fetchData = async (page) => {
       try {
         const res = await axiosInstance.get("/blog", {params: {page: page}});
-        console.log(res.data);
         setBlogs(res.data.blogs);
         setTotalCnt(res.data.totalCnt);
       } catch (error) {
@@ -41,6 +40,7 @@ function BlogListPage() {
           {blogs.map((item, idx) => {
             return (
               <ListItem
+                key={idx}
                 item={item}
                 idx={idx}
                 no={totalCnt - (page * 5 + idx)}
@@ -54,7 +54,7 @@ function BlogListPage() {
             <PageNumber
               className="mb-4"
               key={index}
-              active={index === page}
+              // active={index === page}
               onClick={() => handlePageClick(index)}
             >
               {index + 1}
