@@ -1,8 +1,7 @@
 import React from "react";
 import {useForm} from "react-hook-form";
-import {toast} from "react-toastify";
-import axios from "axios";
-
+import {useDispatch} from "react-redux";
+import {registerUser} from "../../store/thunkFunctions";
 function RegisterPage() {
   const {
     register,
@@ -11,7 +10,7 @@ function RegisterPage() {
     reset,
     watch,
   } = useForm({mode: "onChange"});
-
+  const dispatch = useDispatch();
   //   const onSubmit = data => console.log(data);
 
   async function onSubmit({email, name, password}) {
@@ -19,38 +18,20 @@ function RegisterPage() {
       email,
       name,
       password,
+      image: `https://via.placeholder.com/600x400?text=no+user+image`,
     };
-    try {
-      const response = await axios.post("/user/register", body);
 
-      console.log("회원가입성공", response.data);
-
-      toast("👨👩 회원가입을 성공하였습니다.", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
-      console.error("요청실패 :", error);
-
-      toast("🤷‍♂️🤷‍♂️🤷‍♂️ 회원가입을 실패!!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    dispatch(registerUser(body));
     console.log(body);
-    // toast.info("회원가입을 성공하였습니다.");
+
+    //try {
+    //  const response = await axios.post('/user/register', body)
+    //  console.log('요청 성공:', response.data)
+    //  toast.info('회원가입을 성공했습니다.')
+    //} catch (error) {
+    //  console.error('요청 실패:', error)
+    //  toast.info('회원가입을 실패했습니다.')
+    //}
 
     reset();
   }

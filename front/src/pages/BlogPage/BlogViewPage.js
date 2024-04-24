@@ -23,6 +23,8 @@ function BlogViewPage() {
 
   const userData = useSelector((state) => state.user?.userData);
 
+  console.log("ok1");
+
   useEffect(() => {
     async function loadBlogCon() {
       try {
@@ -31,7 +33,7 @@ function BlogViewPage() {
       } catch (error) {}
     }
     loadBlogCon();
-  }, []);
+  }, [blogId]);
 
   useEffect(() => {
     async function comment() {
@@ -44,9 +46,9 @@ function BlogViewPage() {
       }
     }
     comment();
-  }, []);
-
-  async function handleInserComment(commentContent) {
+  }, [blogId]);
+  if (!blogCon) return null;
+  const handleInserComment = async (commentContent) => {
     // alert(commentContent);
     const commentData = {
       content: commentContent,
@@ -56,11 +58,14 @@ function BlogViewPage() {
 
     try {
       const res = axiosInstance.post(`/blog/${blogId}/comment`, commentData);
-      console.log(res.data);
-    } catch (error) {}
-  }
+      console.log(res.data.newComment);
+      const newComment = res.data.newComment;
+      setComment(...comment, newComment);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  if (!blogCon) return null;
   return (
     <div className="container m-auto p-4">
       <h3>글보기</h3>

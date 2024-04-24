@@ -1,6 +1,20 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosInstance from "../utils/axios";
 
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
+  async (body, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(`/user/register`, body);
+      console.log("thunkapi 회워가입");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (body, thunkAPI) => {

@@ -28,7 +28,7 @@ commentRouter.post("/", async (req, res) => {
     ]);
 
     const comment = await new Comment({content, blog, user}).save();
-    return res.status(200).send({comment});
+    return res.status(200).send({newComment: comment});
   } catch (error) {
     return res.status(400).send({error: error.message});
   }
@@ -39,9 +39,9 @@ commentRouter.get("/", async (req, res) => {
     const {blogId} = req.params;
     if (!mongoose.isValidObjectId(blogId))
       return res.status(400).send({message: "blogId is 없음"});
-    const comment = await Comment.find({blog: blogId}).populate([
-      {path: "user", select: "email name"},
-    ]);
+    const comment = await Comment.find({blog: blogId})
+      .populate([{path: "user", select: "email name"}])
+      .sort({createdAt: 1});
     return res.status(200).send({comment});
   } catch (error) {
     return res.status(400).send({error: error.message});
