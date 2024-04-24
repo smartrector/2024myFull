@@ -15,17 +15,18 @@ function BlogListPage() {
   const [blogs, setBlogs] = useState([]);
   const [totalCnt, setTotalCnt] = useState(0);
   const [page, setPage] = useState(0);
-  const fetchData = async (page) => {
-    try {
-      const res = await axiosInstance.get("/blog", {params: {page: page}});
-      console.log(res.data);
-      setBlogs(res.data.blogs);
-      setTotalCnt(res.data.totalCnt);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
+    const fetchData = async (page) => {
+      try {
+        const res = await axiosInstance.get("/blog", {params: {page: page}});
+        console.log(res.data);
+        setBlogs(res.data.blogs);
+        setTotalCnt(res.data.totalCnt);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData(page);
   }, [page]);
 
@@ -39,7 +40,11 @@ function BlogListPage() {
         <ul>
           {blogs.map((item, idx) => {
             return (
-              <ListItem item={item} idx={idx} no={totalCnt - page * 5 + idx} />
+              <ListItem
+                item={item}
+                idx={idx}
+                no={totalCnt - (page * 5 + idx)}
+              />
             );
           })}
         </ul>

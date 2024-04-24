@@ -51,4 +51,22 @@ blogRouter.get("/", async (req, res) => {
   }
 });
 
+blogRouter.get("/:blogId", async (req, res) => {
+  try {
+    const {blogId} = req.params;
+    if (!mongoose.isValidObjectId(blogId))
+      res.status(400).send({message: "not blogId"});
+
+    const blog = await Blog.findOne({_id: blogId}).populate({
+      path: "user",
+      select: "email name",
+    });
+
+    return res.status(200).send({blog});
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: error.message});
+  }
+});
+
 module.exports = {blogRouter};

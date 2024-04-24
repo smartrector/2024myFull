@@ -13,6 +13,7 @@ import NotAuthRouter from "./components/NotAuthRouter";
 import ProtectedRouter from "./components/ProtectedRouter";
 import MainPage from "./layout/Main/MainPage";
 import BlogListPage from "./pages/BlogPage/BlogListPage";
+import BlogViewPage from "./pages/BlogPage/BlogViewPage";
 
 function Layout() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route element={<ProtectedRouter isAuth={isAuth} />}>
             <Route path="/company" element={<CompanyPage />}></Route>
             <Route path="/blog" element={<BlogListPage />}></Route>
+            <Route path="/blog/:blogId" element={<BlogViewPage />}></Route>
           </Route>
         </Route>
       </Routes>
