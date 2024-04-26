@@ -31,13 +31,13 @@ userRouter.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({email: req.body.email});
     if (!user) {
-      return res.status(400).send({error: "이메일을 확인해주세요"});
+      return res.status(400).send({message: "이메일을 확인해주세요"});
     }
 
     const isMatch = await compare(req.body.password, user.password);
 
     if (!isMatch) {
-      return res.status(400).send({error: "비밀번호 확인해주세요"});
+      return res.status(400).send({message: "비밀번호 확인해주세요"});
     }
 
     const payload = {

@@ -33,7 +33,7 @@ function BlogViewPage() {
       } catch (error) {}
     }
     loadBlogCon();
-  }, [blogId]);
+  }, []);
 
   useEffect(() => {
     async function comment() {
@@ -46,7 +46,7 @@ function BlogViewPage() {
       }
     }
     comment();
-  }, [blogId]);
+  }, []);
   if (!blogCon) return null;
   const handleInserComment = async (commentContent) => {
     // alert(commentContent);
@@ -57,10 +57,13 @@ function BlogViewPage() {
     console.log(commentData);
 
     try {
-      const res = axiosInstance.post(`/blog/${blogId}/comment`, commentData);
-      console.log(res.data.newComment);
-      const newComment = res.data.newComment;
-      setComment(...comment, newComment);
+      const res = await axiosInstance.post(
+        `/blog/${blogId}/comment`,
+        commentData
+      );
+      console.log(res.data.comment);
+      const newComment = res.data.comment;
+      setComment([...comment, newComment]);
     } catch (error) {
       console.log(error);
     }
