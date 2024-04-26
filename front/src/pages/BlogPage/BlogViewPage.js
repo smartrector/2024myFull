@@ -68,6 +68,19 @@ function BlogViewPage() {
       console.log(error);
     }
   };
+  const deleteComment = async (commentId) => {
+    // alert(commentId);
+    try {
+      await axiosInstance.delete(`/blog/${blogId}/comment/${commentId}`);
+      setComment(
+        comment.filter((comment) => {
+          return comment._id !== commentId;
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="container m-auto p-4">
@@ -85,7 +98,13 @@ function BlogViewPage() {
         <p>댓글없네요!!!!!</p>
       ) : (
         comment.map((item, idx) => {
-          return <CommentList comment={item} key={idx} />;
+          return (
+            <CommentList
+              comment={item}
+              key={idx}
+              deleteComment={deleteComment}
+            />
+          );
         })
       )}
     </div>
